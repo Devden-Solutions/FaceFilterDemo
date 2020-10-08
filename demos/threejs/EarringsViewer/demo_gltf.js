@@ -2,10 +2,10 @@
 
 // SETTINGS of this demo:
 const SETTINGS = {
-  gltfModelURL: 'https://devden-solutions.github.io/FaceFilterDemo/demos/threejs/EarringsViewer/DreamCatcher/glTF/out.gltf',
+  gltfModelURL: 'https://devden-solutions.github.io/FaceFilterDemo/demos/threejs/EarringsViewer/DreamCatcher/glTF/earrings.gltf',
   cubeMapURL: 'Bridge2/',
   offsetYZ: [0.3, 0], // offset of the model in 3D along vertical and depth axis
-  scale: 0.05
+  scale: 2.5
 };
 
 let THREECAMERA = null;
@@ -46,9 +46,7 @@ function init_threeScene(spec){
     // scale the model according to its width:
     const sizeX = bbox.getSize(new THREE.Vector3()).x;
     gltf.scene.scale.multiplyScalar(SETTINGS.scale / sizeX);
-    const model = gltf.scene;
-    gltf.scene.rotation.copy(new THREE.Euler(0, 90, 0));
-console.log(gltf.scene.scale);
+
     // dispatch the model:
     threeStuffs.faceObject.add(gltf.scene);
   } ); //end gltfLoader.load callback

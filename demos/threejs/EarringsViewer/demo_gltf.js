@@ -2,9 +2,9 @@
 
 // SETTINGS of this demo:
 const SETTINGS = {
-  gltfModelURL: 'https://devden-solutions.github.io/FaceFilterDemo/demos/threejs/EarringsViewer/DreamCatcher/glTF/earrings1.glb',
+  gltfModelURL: 'https://devden-solutions.github.io/FaceFilterDemo/demos/threejs/EarringsViewer/DreamCatcher/glTF/earrings2.glb',
   cubeMapURL: 'Bridge2/',
-  offsetYZ: [0.3, -0.3], // offset of the model in 3D along vertical and depth axis
+  offsetYZ: [0.3, 0], // offset of the model in 3D along vertical and depth axis
   scale: 2.2
 };
 

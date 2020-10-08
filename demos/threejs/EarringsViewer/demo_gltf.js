@@ -46,6 +46,8 @@ function init_threeScene(spec){
     // scale the model according to its width:
     const sizeX = bbox.getSize(new THREE.Vector3()).x;
     gltf.scene.scale.multiplyScalar(SETTINGS.scale / sizeX);
+    const model = gltf.scene;
+    gltf.scene.rotation.copy(new THREE.Euler(0, 90, 0));
 console.log(gltf.scene.scale);
     // dispatch the model:
     threeStuffs.faceObject.add(gltf.scene);

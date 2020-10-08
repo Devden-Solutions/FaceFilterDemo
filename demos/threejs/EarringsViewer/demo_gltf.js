@@ -4,7 +4,7 @@
 const SETTINGS = {
   gltfModelURL: 'https://devden-solutions.github.io/FaceFilterDemo/demos/threejs/EarringsViewer/DreamCatcher/glTF/out.gltf',
   cubeMapURL: 'Bridge2/',
-  offsetYZ: [0, 0], // offset of the model in 3D along vertical and depth axis
+  offsetYZ: [1, 1], // offset of the model in 3D along vertical and depth axis
   scale: 1
 };
 

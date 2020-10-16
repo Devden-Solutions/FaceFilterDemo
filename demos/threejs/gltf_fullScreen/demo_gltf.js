@@ -49,7 +49,18 @@ function init_threeScene(spec){
 
     // dispatch the model:
     threeStuffs.faceObject.add(gltf.scene);
-  } ); //end gltfLoader.load callback
+  } ,
+  function ( xhr ) {
+
+                console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+        },
+        // called when loading has errors
+        function ( error ) {
+
+                console.log( 'An error happened' );
+
+        }); //end gltfLoader.load callback
   
   //CREATE THE CAMERA
   THREECAMERA = JeelizThreeHelper.create_camera();

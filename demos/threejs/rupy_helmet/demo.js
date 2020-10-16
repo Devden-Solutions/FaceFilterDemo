@@ -76,7 +76,7 @@ function init_threeScene(spec) {
       gl_Position=projectedPosition;\n\
       \n\
       // compute UV coordinates on the video texture:\n\
-      vec4 mvPosition0 = modelViewMatrix * vec4( position, 1.0 );\n\
+      vec4 mvPosition0 = modelViewMatrix * vec4( position, 4.0 );\n\
       vec4 projectedPosition0 = projectionMatrix * mvPosition0;\n\
       vUVvideo = vec2(0.5,0.5)+0.5*projectedPosition0.xy/projectedPosition0.w;\n\
       vY = position.y*cos(THETAHEAD)-position.z*sin(THETAHEAD);\n\

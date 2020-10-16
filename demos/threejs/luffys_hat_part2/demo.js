@@ -3,7 +3,7 @@
 
 // SETTINGS of this demo:
 const SETTINGS = {
-  pivotOffsetYZ: [0.2, 0.6 - 0.1], // XYZ of the distance between the center of the cube and the pivot
+  pivotOffsetYZ: [0.2, 0.6 - 0.3], // XYZ of the distance between the center of the cube and the pivot
 };
 
 let THREECAMERA = null;
@@ -24,23 +24,23 @@ function init_threeScene(spec) {
 
   let HATOBJ3D = new THREE.Object3D();
   // Create the JSONLoader for our hat
-  const loader = new THREE.BufferGeometryLoader();
+  const loader = new THREE.GLTFLoader();
   // Load our cool hat
   loader.load(
-    './models/luffys_hat/luffys_hat.json',
+    'https://devden-solutions.github.io/FaceFilterDemo/demos/threejs/EarringsViewer/DreamCatcher/glTF/earrings2.glb',
     function (geometry) {
       // we create our Hat mesh
-      const mat = new THREE.MeshBasicMaterial({
-        map: new THREE.TextureLoader().load("./models/luffys_hat/Texture2.jpg")
-      });
+      // const mat = new THREE.MeshBasicMaterial({
+      //   map: new THREE.TextureLoader().load("./models/luffys_hat/Texture2.jpg")
+      // });
 
-      const HATMESH = new THREE.Mesh(geometry, mat);
+      // const HATMESH = new THREE.Mesh(geometry, mat);
 
-      HATMESH.scale.multiplyScalar(1.1 * 1.1);
-      HATMESH.rotation.set(-0.1, 0, 0);
-      HATMESH.position.set(0.0, 0.7, -0.3);
-      HATMESH.frustumCulled = false;
-      HATMESH.side = THREE.DoubleSide;
+      geometry.scene.scale.multiplyScalar(1.1 * 1.3);
+      geometry.scene.rotation.set(-0.1, 0, 0);
+      geometry.scene.position.set(0.0, 1, -0.3);
+      geometry.scene.frustumCulled = false;
+      geometry.scene.side = THREE.DoubleSide;
 
 
       // CREATE THE MASK
@@ -49,9 +49,9 @@ function init_threeScene(spec) {
       faceLowPolyEyesEarsFill.json has been exported from dev/faceLowPolyEyesEarsFill.blend using THREE.JS blender exporter with Blender v2.76
       */
       maskLoader.load('./models/mask/faceLowPolyEyesEarsFill2.json', function (maskBufferGeometry) {
-        const vertexShaderSource = 'varying vec2 vUVvideo;\n\
+                const vertexShaderSource = 'varying vec2 vUVvideo;\n\
         varying float vY, vNormalDotZ;\n\
-        const float THETAHEAD=0.25;\n\
+        const float THETAHEAD=1.8;\n\
         void main() {\n\
           vec4 mvPosition = modelViewMatrix * vec4( position, 1.0);\n\
           vec4 projectedPosition=projectionMatrix * mvPosition;\n\
@@ -72,13 +72,12 @@ function init_threeScene(spec) {
         varying float vY, vNormalDotZ;\n\
         void main() {\n\
           vec3 videoColor = texture2D(samplerVideo, vUVvideo).rgb;\n\
-          float darkenCoeff = smoothstep(-0.15, 0.15, vY);\n\
-          float borderCoeff = smoothstep(0.0, 0.85, vNormalDotZ);\n\
+          float darkenCoeff = smoothstep(-0.05, 0.8, vY);\n\
+          float borderCoeff = smoothstep(-0.2, 0.2, vNormalDotZ);\n\
           gl_FragColor = vec4(videoColor*(1.-darkenCoeff), borderCoeff );\n\
           // gl_FragColor=vec4(borderCoeff, 0., 0., 1.);\n\
           // gl_FragColor=vec4(darkenCoeff, 0., 0., 1.);\n\
         }";
-
         const mat = new THREE.ShaderMaterial({
           vertexShader: vertexShaderSource,
           fragmentShader: fragmentShaderSource,
@@ -96,7 +95,7 @@ function init_threeScene(spec) {
         FACEMESH.position.set(0, 0.5, -0.75);
         
 
-        HATOBJ3D.add(HATMESH);
+        HATOBJ3D.add(geometry.scene);
         HATOBJ3D.add(FACEMESH);
         addDragEventListener(HATOBJ3D);
 
@@ -130,10 +129,10 @@ function init_threeScene(spec) {
   }
 
   //MT216: create the frame. We reuse the geometry of the video
-  const frameMesh=new THREE.Mesh(threeStuffs.videoMesh.geometry,  create_mat2d(new THREE.TextureLoader().load('./images/cadre_v1.png'), true))
-  frameMesh.renderOrder = 999; // render last
-  frameMesh.frustumCulled = false;
-  threeStuffs.scene.add(frameMesh);
+  // const frameMesh=new THREE.Mesh(threeStuffs.videoMesh.geometry,  create_mat2d(new THREE.TextureLoader().load('./images/cadre_v1.png'), true))
+  // frameMesh.renderOrder = 999; // render last
+  // frameMesh.frustumCulled = false;
+  // threeStuffs.scene.add(frameMesh);
 
   // CREATE A LIGHT
   const ambient = new THREE.AmbientLight(0xffffff, 0.8);
